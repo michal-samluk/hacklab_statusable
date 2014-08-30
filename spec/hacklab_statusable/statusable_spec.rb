@@ -34,6 +34,8 @@ describe HacklabStatusable::Statusable do
     expect(project.paused?).to be_truthy
     project.terminated!
     expect(project.terminated?).to be_truthy
+    project.state = nil
+    expect(project.status.nil?).to be_truthy
 
   end
 
