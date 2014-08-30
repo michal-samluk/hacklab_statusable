@@ -15,14 +15,14 @@ module HacklabStatusable
 
     def perform
       klass.class_eval <<-eoruby, __FILE__, __LINE__ + 1
-          def #{column}
-            status_value = #{column.to_s.pluralize}[read_attribute(:#{column})]
-            status_value.to_s.humanize unless status_value.nil?
-          end
+          def #{column}                                                          # def state
+            status_value = #{column.to_s.pluralize}[read_attribute(:#{column})]  #   status_value = states[read_attribute(:state)]
+            status_value.to_s.humanize unless status_value.nil?                  #   status_value.to_s.humanize unless status_value.nil?
+          end                                                                    # end
 
-          def #{column.to_s.pluralize}
-            self.class.statusable_options
-          end
+          def #{column.to_s.pluralize}      # def states
+            self.class.statusable_options   #   self.class.statusable_options
+          end                               # end
       eoruby
 
       options.each { |index, name| define_methods(index, name) }
