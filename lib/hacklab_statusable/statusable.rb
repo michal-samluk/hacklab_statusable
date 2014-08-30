@@ -2,8 +2,8 @@ module HacklabStatusable
 
   module Statusable
 
-    def test
-      puts 'It works fine!'
+    def ok?
+      'It works fine!'
     end
 
   end
