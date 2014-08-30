@@ -1,18 +1,31 @@
-require 'bundler/setup'
+require 'active_record'
+require 'database_cleaner'
+require 'logger'
+require 'support/model_macros'
+
 require 'hacklab_statusable'
-require 'rails/version'
 
-class User
-  include HacklabStatusable::Statusable
-end
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+ActiveRecord::Base.logger = Logger.new(File.join(File.dirname(__FILE__), "../log/debug.log"))
+ActiveRecord::Base.send(:include, HacklabStatusable::Statusable)
 
-# After each example, revert changes made to the class
-def protect_class(klass)
-  before { stub_const klass.name, Class.new(klass) }
-end
+require 'support/models'
 
-def protect_module(mod)
-  before { stub_const mod.name, mod.dup }
+RSpec.configure do |config|
+  config.include ModelMacros
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 
