@@ -14,7 +14,7 @@ describe HacklabStatusable::Statusable do
     expect(project).to respond_to(:paused!)
   end
 
-  it '.status_name' do
+  it '.status (scope)' do
     5.times { create_project(state: 0) }
     12.times { create_project(state: 1) }
     18.times { create_project(state: 2) }
@@ -23,11 +23,15 @@ describe HacklabStatusable::Statusable do
     expect(Project.terminated.size).to eq 18
   end
 
-  it '#status' do
-    expect(create_project.status).to eq 'Active'
+  it '#state' do
+    expect(create_project.state).to eq 'Active'
   end
 
-  it '#status_name!' do
+  it '#state' do
+    expect(create_project.states).to eq 0 => :active, 1 => :paused, 2 => :terminated
+  end
+
+  it '#status!' do
     project = create_project
     expect(project.active?).to be_truthy
     project.paused!
@@ -35,11 +39,11 @@ describe HacklabStatusable::Statusable do
     project.terminated!
     expect(project.terminated?).to be_truthy
     project.state = nil
-    expect(project.status.nil?).to be_truthy
+    expect(project.state.nil?).to be_truthy
 
   end
 
-  it '#status_name?' do
+  it '#status?' do
     project = create_project
     expect(project.active?).to be_truthy
     expect(project.paused?).to be_falsy

@@ -3,11 +3,6 @@ module HacklabStatusable
   module Statusable
     extend ActiveSupport::Concern
 
-    def status
-      status_value = self.class.statusable_options[read_attribute(self.class.statusable_column)]
-      status_value.to_s.humanize unless status_value.nil?
-    end
-
     module ClassMethods
 
       def statusable_options

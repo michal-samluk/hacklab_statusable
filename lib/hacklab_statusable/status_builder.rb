@@ -14,20 +14,35 @@ module HacklabStatusable
     end
 
     def perform
+      klass.class_eval <<-eoruby, __FILE__, __LINE__ + 1
+          def #{column}
+            status_value = #{column.to_s.pluralize}[read_attribute(:#{column})]
+            status_value.to_s.humanize unless status_value.nil?
+          end
+
+          def #{column.to_s.pluralize}
+            self.class.statusable_options
+          end
+      eoruby
+
       options.each { |index, name| define_methods(index, name) }
     end
 
     def define_methods(index, name)
       klass.class_eval <<-eoruby, __FILE__, __LINE__ + 1
-          scope :#{name}, -> { where(:#{column} => #{index}) }
+          scope :#{name}, -> { where(:#{column} => #{index}) }        # scope :state, -> { where(:state => 0) }
 
-          def #{name}!
-            update_columns(#{column}: #{index}, updated_at: Time.now)
-          end
+          def #{name}!                                                # def active!
+            update_columns(#{column}: #{index}, updated_at: Time.now) #   update_columns(state: 0, updated_at: Time.now)
+          end                                                         # end
 
-          def #{name}?
-            read_attribute(:#{column}) == #{index}
-          end
+          def #{name}                                                 # def active
+            self.#{column} = #{index}                                 #   self.state = 0
+          end                                                         # end
+
+          def #{name}?                                                # def active?
+            read_attribute(:#{column}) == #{index}                    #   read_attribute(:state) == 0
+          end                                                         # end
       eoruby
     end
 
