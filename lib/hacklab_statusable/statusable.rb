@@ -1,4 +1,4 @@
-module ActsAsStatusable
+module HacklabStatusable
 
   module Statusable
 

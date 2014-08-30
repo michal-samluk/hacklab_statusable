@@ -1,8 +1,8 @@
-module ActsAsStatusable
+module HacklabStatusable
 
   def self.setup_orm(base)
     base.class_eval do
-      include ActsAsStatusable::Statusable
+      include HacklabStatusable::Statusable
     end
   end
 

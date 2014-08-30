@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "acts_as_statusable/version"
+require "hacklab_statusable/version"
 
 Gem::Specification.new do |s|
   s.name = 'hacklab_statusable'
-  s.version = ActsAsStatusable::VERSION
+  s.version = HacklabStatusable::VERSION
   s.authors = %w(Michał\ Samluk)
   s.summary = 'Gem created on hacklab.'
   s.license = "MIT"
