@@ -3,7 +3,7 @@ ActiveRecord::Schema.define do
 
   create_table :projects, :force => true do |t|
     t.string :name
-    t.integer :status
+    t.integer :state
     t.timestamps
   end
 end

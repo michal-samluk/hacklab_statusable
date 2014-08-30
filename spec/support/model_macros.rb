@@ -1,7 +1,7 @@
 module ModelMacros
   PROJECT_DEFAULTS = {
       name: 'Hacklab',
-      status: 0
+      state: 0
   }
 
   def new_project(params={})
