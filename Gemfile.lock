@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    hacklab_statusable (0.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    sqlite3 (1.3.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hacklab_statusable!
+  sqlite3
