@@ -1,9 +1,10 @@
 module HacklabStatusable
 
-  def self.setup_orm(base)
-    base.class_eval do
-      raise 'test'
-      include HacklabStatusable::Statusable
+  class Railtie < Rails::Railtie
+    initializer "draper.setup_orm" do |app|
+      ActiveSupport.on_load :active_record do
+        HacklabStatusable.setup_orm self
+      end
     end
   end
 
