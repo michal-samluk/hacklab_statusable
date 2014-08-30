@@ -4,7 +4,7 @@ require "acts_as_statusable/version"
 
 Gem::Specification.new do |s|
   s.name = 'hacklab_statusable'
-  s.version = Statusable::VERSION
+  s.version = ActsAsStatusable::VERSION
   s.authors = %w(Michał\ Samluk)
   s.summary = 'Gem created on hacklab.'
   s.license = "MIT"
