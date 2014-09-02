@@ -2,7 +2,7 @@ require 'spec_helper'
 describe HacklabStatusable::Statusable do
 
   it '.acts_as_statusable' do
-    Project.acts_as_statusable :state, 0 => :active, 1 => :paused, 2 => :terminated
+    Project.acts_as_statusable state: {active: 0, paused: 1, terminated: 2}
     project = new_project
     expect(project).to respond_to(:active?)
     expect(project).to respond_to(:active!)
@@ -27,8 +27,8 @@ describe HacklabStatusable::Statusable do
     expect(create_project.state).to eq 'Active'
   end
 
-  it '#state' do
-    expect(create_project.states).to eq 0 => :active, 1 => :paused, 2 => :terminated
+  it '#states' do
+    expect(create_project.states).to eq active: 0, paused: 1, terminated: 2
   end
 
   it '#status!' do

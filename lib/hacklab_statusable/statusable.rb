@@ -13,17 +13,8 @@ module HacklabStatusable
         @statusable_options = val
       end
 
-      def statusable_column
-        @statusable_column
-      end
-
-      def statusable_column=(val)
-        @statusable_column = val
-      end
-
-      def acts_as_statusable(column, options)
+      def acts_as_statusable(options)
         self.statusable_options = options
-        self.statusable_column = column
         HacklabStatusable::StatusBuilder.perform(self)
       end
     end
